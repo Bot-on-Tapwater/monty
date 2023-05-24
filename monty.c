@@ -88,12 +88,21 @@ int main (int argc, char **argv)
 
 					op_codes_funcs[i].f(&working_stack, line_number);
 				}
+				break;
 			}	
 			i++;
 		}
 
+		if (op_codes_funcs[i].opcode == NULL)
+		{
+			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, token);
+			exit(EXIT_FAILURE);
+		}
+
 		/* check if we found an opcode */
 		i = 0;
+
+		
 
 	}
 	free(line);	/* free resources */
