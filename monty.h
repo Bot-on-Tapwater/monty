@@ -1,5 +1,6 @@
 #ifndef MONTY_H
 #define MONTY_H
+#define  _GNU_SOURCE
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -37,13 +38,13 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-void handle_add (stack_t **stack, unsigned int line_number);
-void handle_nop (stack_t **stack, unsigned int line_number);
-void handle_pop (stack_t **stack, unsigned int line_number);
-void handle_pint (stack_t **stack, unsigned int line_number);
-void handle_push (stack_t **stack, unsigned int line_number);
-void handle_swap (stack_t **stack, unsigned int line_number);
-void handle_pall (stack_t **stack, unsigned int line_number);
+void handle_add(stack_t **stack, unsigned int line_number);
+void handle_nop(stack_t **stack, unsigned int line_number);
+void handle_pop(stack_t **stack, unsigned int line_number);
+void handle_pint(stack_t **stack, unsigned int line_number);
+void handle_push(stack_t **stack, unsigned int line_number);
+void handle_swap(stack_t **stack, unsigned int line_number);
+void handle_pall(stack_t **stack, unsigned int line_number);
 stack_t *add_dnodeint(stack_t **head, unsigned int n);
 size_t print_stack_t(stack_t **h);
 int check_integer(unsigned int line_number, char *args);

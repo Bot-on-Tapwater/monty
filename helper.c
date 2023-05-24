@@ -19,5 +19,5 @@ int check_integer(unsigned int line_number, char *args)
 		}
 		args++;
 	}
-	return 1;
+	return (1);
 } 

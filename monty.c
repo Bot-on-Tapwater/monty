@@ -1,116 +1,89 @@
 #include "monty.h"
 
-int main (int argc, char **argv)
+int check_opcode(const char *token, instruction_t *op_codes_funcs, stack_t **working_stack, unsigned int line_number)
 {
-	/* FILE IO variables */
-	FILE *file;	/* File object */
+	int i = 0;
 
-	/* getline() variables */
-	char *line = NULL;	/* For getline() */
-	size_t len = 0;		/* For getline() */
-	ssize_t read;		/* For getline() */
-
-	/* main() variable */
-	unsigned int line_number = 0;
-
-	/* strtok() variables */
-	char *token;
-	char *args;
-	char *delimiter = " \t\n";
-
-	/* opcodes structs variables */
-	instruction_t op_codes_funcs[] = {
-		{"push", handle_push},
-		{"pall", handle_pall},
-		{"pint", handle_pint},
-		{"pop", handle_pop},
-		{"swap", handle_swap},
-		{"add", handle_add},
-		{"nop", handle_nop},
-		{NULL, NULL}
-	};
-	int i = 0;	/* loops through struct */
-
-	/* stack linked list variables */
-	stack_t *working_stack = NULL; 
-
-
-	if (argc != 2) /* Check no. of arguments */
+	while (op_codes_funcs[i].opcode != NULL) /* looping through the opcodes */
 	{
-		fprintf(stderr, "USAGE: monty file\n");
-		exit(EXIT_FAILURE);
-	}
-
-	file = fopen(argv[1], "r");	/* Open file in read only mode */
-
-	if (file == NULL)	/* Check if file can be opened */
-	{
-		fprintf(stderr, "Can't open file %s\n", argv[1]);
-		exit(EXIT_FAILURE);
-	}
-
-	
-	while ((read = getline(&line, &len, file)) != -1) /* tokenize each line in file */
-	{
-		line_number++;	/* Increment count */
-
-		token = strtok(line, delimiter);
-
-		/* printf ("\n***Token is :%s***\n", token); */
-		if (token == NULL)
+		if (strcmp(token, op_codes_funcs[i].opcode) == 0)
 		{
-			continue; /* Skip empty line */
-		}
-
-		while (op_codes_funcs[i].opcode != NULL) /* looping through the opcodes */
+		if (strcmp(token, "push") == 0)
 		{
-			/* printf("\t\t%s\n", op_codes_funcs[i].opcode); */
+			char *args = strtok(NULL, " \t\n");
 
-			if (strcmp(token, op_codes_funcs[i].opcode) == 0)
+			if (args == NULL)
 			{
-				if (strcmp(token, "push") == 0)
-				{
-
-					/* printf ("\nMatch found %s(token) = %s(opcode)\n", token, op_codes_funcs[i].opcode); */
-
-					args = strtok(NULL, delimiter);
-
-					if (args == NULL)
-					{
-						fprintf(stderr, "L%u: usage: push integer\n", line_number);
-						exit(EXIT_FAILURE);
-					}
-
-					check_integer(line_number, args);
-
-					op_codes_funcs[i].f(&working_stack, atoi(args));
-
-				}
-				else
-				{
-					/* printf ("\nMatch found %s(token) = %s(opcode)\n", token, op_codes_funcs[i].opcode); */
-
-					op_codes_funcs[i].f(&working_stack, line_number);
-				}
-				break;
-			}	
-			i++;
-		}
-
-		if (op_codes_funcs[i].opcode == NULL)
-		{
-			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, token);
+			fprintf(stderr, "L%u: usage: push integer\n", line_number);
 			exit(EXIT_FAILURE);
+			}
+
+			check_integer(line_number, args);
+
+			op_codes_funcs[i].f(working_stack, atoi(args));
 		}
-
-		/* check if we found an opcode */
-		i = 0;
-
-		
-
+		else
+		{
+			op_codes_funcs[i].f(working_stack, line_number);
+		}
+		return 1;
+		}
+		i++;
 	}
-	free(line);	/* free resources */
-	fclose(file);	/* close file */
-	return (0);
+	return 0;
 }
 
+void process_file(const char *filename)
+{
+	FILE *file = fopen(filename, "r");
+	char *line = NULL;
+	size_t len = 0;
+	ssize_t read;
+	unsigned int line_number = 0;
+	char *token;
+
+	stack_t *working_stack = NULL;
+
+	instruction_t op_codes_funcs[] = {
+		{"push", handle_push}, {"pall", handle_pall},
+		{"pint", handle_pint}, {"pop", handle_pop},
+		{"swap", handle_swap}, {"add", handle_add},
+		{"nop", handle_nop}, {NULL, NULL}
+	};
+
+		if (file == NULL)
+	{
+		fprintf(stderr, "Can't open file %s\n", filename);
+		exit(EXIT_FAILURE);
+	}
+
+	while ((read = getline(&line, &len, file)) != -1)
+	{
+		line_number++;
+		token = strtok(line, " \t\n");
+		if (token == NULL)
+		{
+		continue; /* Skip empty line */
+		}
+		if (!check_opcode(token, op_codes_funcs, &working_stack, line_number))
+		{
+		fprintf(stderr, "L%u: unknown instruction %s\n", line_number, token);
+		exit(EXIT_FAILURE);
+		}
+	}
+	free(line);
+	fclose(file);
+}
+
+int main(int argc, char **argv)
+{
+    if (argc != 2)
+    {
+        fprintf(stderr, "USAGE: monty file\n");
+        exit(EXIT_FAILURE);
+    }
+
+    process_file(argv[1]);
+
+    return 0;
+}

@@ -54,6 +54,8 @@ void handle_swap (stack_t **stack, unsigned int line_number)
 void handle_pall (stack_t **stack, unsigned int line_number)
 {
 	stack_t *current = *stack;
+
+	(void)line_number;
 	
 	while (current != NULL)
 	{
