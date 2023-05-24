@@ -1,6 +1,17 @@
 #include "monty.h"
 
-int check_opcode(const char *token, instruction_t *op_codes_funcs, stack_t **working_stack, unsigned int line_number)
+/**
+ * check_opcode - Checks if the given token matches any opcode.
+ * @token: The token to check.
+ * @op_codes_funcs: The array of opcode structs.
+ * @working_stack: Double pointer to the top of the stack.
+ * @line_number: The line number where the opcode is found.
+ *
+ * Return: 1 if a matching opcode is found, 0 otherwise.
+ */
+int check_opcode(const char *token,
+instruction_t *op_codes_funcs,
+stack_t **working_stack, unsigned int line_number)
 {
 	int i = 0;
 
@@ -26,13 +37,19 @@ int check_opcode(const char *token, instruction_t *op_codes_funcs, stack_t **wor
 		{
 			op_codes_funcs[i].f(working_stack, line_number);
 		}
-		return 1;
+		return (1);
 		}
 		i++;
 	}
-	return 0;
+	return (0);
 }
 
+/**
+ * process_file - Processes the instructions in the specified file.
+ * @filename: The name of the file to process.
+ *
+ * Return: Nothing.
+ */
 void process_file(const char *filename)
 {
 	FILE *file = fopen(filename, "r");
@@ -75,15 +92,22 @@ void process_file(const char *filename)
 	fclose(file);
 }
 
+/**
+ * main - Entry point of the program.
+ * @argc: The number of command-line arguments.
+ * @argv: An array of command-line argument strings.
+ *
+ * Return: 0 on success.
+ */
 int main(int argc, char **argv)
 {
-    if (argc != 2)
-    {
-        fprintf(stderr, "USAGE: monty file\n");
-        exit(EXIT_FAILURE);
-    }
+	if (argc != 2)
+	{
+		fprintf(stderr, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
+	}
 
-    process_file(argv[1]);
+	process_file(argv[1]);
 
-    return 0;
+	return (0);
 }

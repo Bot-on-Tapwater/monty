@@ -1,6 +1,13 @@
 #include "monty.h"
 
-void handle_add (stack_t **stack, unsigned int line_number)
+/**
+ * handle_add - Adds the top two elements of the stack.
+ * @stack: Double pointer to the top of the stack.
+ * @line_number: The line number where the add operation is performed.
+ *
+ * Return: Nothing.
+ */
+void handle_add(stack_t **stack, unsigned int line_number)
 {
 	stack_t *top;
 	stack_t *next;
@@ -21,13 +28,27 @@ void handle_add (stack_t **stack, unsigned int line_number)
 	free(top);
 }
 
-void handle_nop (stack_t **stack, unsigned int line_number)
+/**
+ * handle_nop - Does nothing.
+ * @stack: Double pointer to the top of the stack.
+ * @line_number: The line number where the nop operation is performed.
+ *
+ * Return: Nothing.
+ */
+void handle_nop(stack_t **stack, unsigned int line_number)
 {
 	(void)stack;
-   	(void)line_number;
+	(void)line_number;
 }
 
-void handle_pop (stack_t **stack, unsigned int line_number)
+/**
+ * handle_pop - Removes the top element of the stack.
+ * @stack: Double pointer to the top of the stack.
+ * @line_number: The line number where the pop operation is performed.
+ *
+ * Return: Nothing.
+ */
+void handle_pop(stack_t **stack, unsigned int line_number)
 {
 	stack_t *temp;
 
@@ -46,7 +67,14 @@ void handle_pop (stack_t **stack, unsigned int line_number)
 	free(temp);
 }
 
-void handle_pint (stack_t **stack, unsigned int line_number)
+/**
+ * handle_pint - Prints the value at the top of the stack.
+ * @stack: Double pointer to the top of the stack.
+ * @line_number: The line number where the pint operation is performed.
+ *
+ * Return: Nothing.
+ */
+void handle_pint(stack_t **stack, unsigned int line_number)
 {
 	if (*stack == NULL)
 	{

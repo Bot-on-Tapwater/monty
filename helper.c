@@ -1,5 +1,12 @@
 #include "monty.h"
 
+/**
+ * check_integer - Checks if the given string is a valid integer.
+ * @line_number: The line number where the integer is being checked.
+ * @args: The string to be checked.
+ *
+ * Return: Nothing.
+ */
 int check_integer(unsigned int line_number, char *args)
 {
 	if (args == NULL || *args == '\0')
@@ -20,4 +27,4 @@ int check_integer(unsigned int line_number, char *args)
 		args++;
 	}
 	return (1);
-} 
+}

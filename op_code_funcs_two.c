@@ -1,6 +1,13 @@
 #include "monty.h"
 
-void handle_push (stack_t **stack, unsigned int line_number)
+/**
+ * handle_push - Pushes an element to the stack.
+ * @stack: Double pointer to the top of the stack.
+ * @line_number: The line number where the push operation is performed.
+ *
+ * Return: Nothing.
+ */
+void handle_push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new_node;
 	/* Get the integer argument from the instruction */
@@ -25,7 +32,14 @@ void handle_push (stack_t **stack, unsigned int line_number)
 	*stack = new_node;
 }
 
-void handle_swap (stack_t **stack, unsigned int line_number)
+/**
+ * handle_swap - Swaps the top two elements of the stack.
+ * @stack: Double pointer to the top of the stack.
+ * @line_number: The line number where the swap operation is performed.
+ *
+ * Return: Nothing.
+ */
+void handle_swap(stack_t **stack, unsigned int line_number)
 {
 	stack_t *top;
 	stack_t *next;
@@ -51,17 +65,22 @@ void handle_swap (stack_t **stack, unsigned int line_number)
 	*stack = next;
 }
 
-void handle_pall (stack_t **stack, unsigned int line_number)
+/**
+ * handle_pall - Prints all the elements of the stack.
+ * @stack: Double pointer to the top of the stack.
+ * @line_number: The line number where the pall operation is performed.
+ *
+ * Return: Nothing.
+ */
+void handle_pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *current = *stack;
 
 	(void)line_number;
-	
+
 	while (current != NULL)
 	{
 		printf("%d\n", current->n);
 		current = current->next;
 	}
 }
-
-

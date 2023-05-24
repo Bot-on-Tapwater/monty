@@ -48,5 +48,9 @@ void handle_pall(stack_t **stack, unsigned int line_number);
 stack_t *add_dnodeint(stack_t **head, unsigned int n);
 size_t print_stack_t(stack_t **h);
 int check_integer(unsigned int line_number, char *args);
+int check_opcode(const char *token,
+instruction_t *op_codes_funcs,
+stack_t **working_stack, unsigned int line_number);
+void process_file(const char *filename);
 
 #endif
