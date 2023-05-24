@@ -57,6 +57,10 @@ int main (int argc, char **argv)
 		token = strtok(line, delimiter);
 
 		/* printf ("\n***Token is :%s***\n", token); */
+		if (token == NULL)
+		{
+			continue; /* Skip empty line */
+		}
 
 		while (op_codes_funcs[i].opcode != NULL) /* looping through the opcodes */
 		{
