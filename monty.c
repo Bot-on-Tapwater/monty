@@ -60,29 +60,34 @@ int main (int argc, char **argv)
 
 		while (op_codes_funcs[i].opcode != NULL) /* looping through the opcodes */
 		{
-			/* printf("%s\n", op_codes_funcs[i].opcode); */
+			/* printf("\t\t%s\n", op_codes_funcs[i].opcode); */
 
 			if (strcmp(token, op_codes_funcs[i].opcode) == 0)
 			{
-				if (strcmp(token, "push") == 0)
-				{
-					args = strtok(NULL, delimiter);
+				// if (strcmp(token, "push") == 0)
+				// {
 
-					if (args == NULL)
-					{
-						fprintf(stderr, "L%u: usage: push integer\n", line_number);
-						exit(EXIT_FAILURE);
-					}
+					// printf ("\nMatch found %s(token) = %s(opcode)\n", token, op_codes_funcs[i].opcode);
 
-					check_integer(line_number, args);
+					// args = strtok(NULL, delimiter);
 
-					op_codes_funcs[i].f(&working_stack, atoi(args));
+					// if (args == NULL)
+					// {
+					// 	fprintf(stderr, "L%u: usage: push integer\n", line_number);
+					// 	exit(EXIT_FAILURE);
+					// }
 
-				}
-				else
-				{
+					// check_integer(line_number, args);
+
+				// 	op_codes_funcs[i].f(&working_stack, line_number);
+
+				// }
+				// else
+				// {
+					// printf ("\nMatch found %s(token) = %s(opcode)\n", token, op_codes_funcs[i].opcode);
+
 					op_codes_funcs[i].f(&working_stack, line_number);
-				}
+				// }
 			}	
 			i++;
 		}
