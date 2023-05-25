@@ -85,3 +85,24 @@ void handle_pint(stack_t **stack, unsigned int line_number)
 	printf("%d\n", (*stack)->n);
 }
 
+/**
+ * sub - Prints the value at the top of the stack.
+ * @stack: Double pointer to the top of the stack.
+ * @line_number: The line number where the pint operation is performed.
+ *
+ * Return: Nothing.
+ */
+void sub(stack_t **stack, unsigned int line_number)
+{
+	int sub_result;
+
+	if (*stack == NULL || (*stack)->next == NULL)
+	{
+		fprintf(stderr, "L%u: can't sub, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+	sub_result = (*stack)->next->n - (*stack)->n;
+	pop(stack, line_number); /*Remove the top element*/
+	(*stack)->n = sub_result; /* Update the second top element with the result*/
+}

@@ -19,25 +19,25 @@ stack_t **working_stack, unsigned int line_number)
 	{
 		if (strcmp(token, op_codes_funcs[i].opcode) == 0)
 		{
-		if (strcmp(token, "push") == 0)
-		{
-			char *args = strtok(NULL, " \t\n");
-
-			if (args == NULL)
+			if (strcmp(token, "push") == 0)
 			{
-			fprintf(stderr, "L%u: usage: push integer\n", line_number);
-			exit(EXIT_FAILURE);
+				char *args = strtok(NULL, " \t\n");
+
+				if (args == NULL)
+				{
+					fprintf(stderr, "L%u: usage: push integer\n", line_number);
+					exit(EXIT_FAILURE);
+				}
+
+				check_integer(line_number, args);
+
+				op_codes_funcs[i].f(working_stack, atoi(args));
 			}
-
-			check_integer(line_number, args);
-
-			op_codes_funcs[i].f(working_stack, atoi(args));
-		}
-		else
-		{
-			op_codes_funcs[i].f(working_stack, line_number);
-		}
-		return (1);
+			else
+			{
+				op_codes_funcs[i].f(working_stack, line_number);
+			}
+			return (1);
 		}
 		i++;
 	}
@@ -65,7 +65,8 @@ void process_file(const char *filename)
 		{"push", handle_push}, {"pall", handle_pall},
 		{"pint", handle_pint}, {"pop", handle_pop},
 		{"swap", handle_swap}, {"add", handle_add},
-		{"nop", handle_nop}, {NULL, NULL}
+		{"nop", handle_nop}, {"sub", sub},
+		{NULL, NULL}
 	};
 
 	if (file == NULL)

@@ -53,5 +53,6 @@ instruction_t *op_codes_funcs,
 stack_t **working_stack, unsigned int line_number);
 void process_file(const char *filename);
 void cleanup(FILE *file, char *line, stack_t **stack);
+void sub(stack_t **stack, unsigned int line_number);
 
 #endif
