@@ -88,8 +88,7 @@ void process_file(const char *filename)
 		exit(EXIT_FAILURE);
 		}
 	}
-	free(line);
-	fclose(file);
+	cleanup(file, line, &working_stack);
 }
 
 /**
