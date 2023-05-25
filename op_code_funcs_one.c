@@ -103,6 +103,6 @@ void sub(stack_t **stack, unsigned int line_number)
 	}
 
 	sub_result = (*stack)->next->n - (*stack)->n;
-	pop(stack, line_number); /*Remove the top element*/
+	handle_pop(stack, line_number); /*Remove the top element*/
 	(*stack)->n = sub_result; /* Update the second top element with the result*/
 }
