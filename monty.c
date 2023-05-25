@@ -68,20 +68,22 @@ void process_file(const char *filename)
 		{"nop", handle_nop}, {NULL, NULL}
 	};
 
-		if (file == NULL)
+	if (file == NULL)
 	{
 		fprintf(stderr, "Can't open file %s\n", filename);
 		exit(EXIT_FAILURE);
 	}
-
 	while ((read = getline(&line, &len, file)) != -1)
 	{
 		line_number++;
-		token = strtok(line, " \t\n");
+		token = strtok(line, " \t\n\r");
 		if (token == NULL)
 		{
-		continue; /* Skip empty line */
+			free(token);
+			continue; /* Skip empty line */
 		}
+		else if (token[0] == '#')
+			continue;
 		if (!check_opcode(token, op_codes_funcs, &working_stack, line_number))
 		{
 		fprintf(stderr, "L%u: unknown instruction %s\n", line_number, token);
