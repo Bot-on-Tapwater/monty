@@ -14,15 +14,18 @@ int check_integer(unsigned int line_number, char *args)
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
+
+	/* // Skip the optional sign character */
 	if (*args == '-' || *args == '+')
 		args++;
 
+	/* // Check if the remaining characters are digits */
 	while (*args != '\0')
 	{
 		if (!isdigit(*args))
 		{
-			fprintf(stderr, "L%u: usage: push integer\n", line_number);
-			exit(EXIT_FAILURE);
+		fprintf(stderr, "L%u: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
 		}
 		args++;
 	}
